@@ -3,6 +3,7 @@ from pydantic import BaseModel
 from tensorflow.keras.models import load_model
 import pickle
 from tensorflow.keras.preprocessing.sequence import pad_sequences
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 
@@ -15,6 +16,14 @@ max_len = 200
 
 class ReviewRequest(BaseModel):
     review: str
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 @app.post("/predict")
 def predict_sentiment(data: ReviewRequest):
