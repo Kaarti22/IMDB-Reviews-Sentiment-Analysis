@@ -27,7 +27,7 @@ const Page = () => {
 
     try {
       const response = await axios.post<SentimentResponse>(
-        "http://127.0.0.1:8000/predict",
+        `${process.env.NEXT_PUBLIC_FLASK_API_URL}/predict`,
         { review },
         {
           headers: { "Content-Type": "application/json" },
